@@ -1,1 +1,1 @@
-build = npm install express fs mongodb cron
+build = npm install express fs mongodb node-cron
