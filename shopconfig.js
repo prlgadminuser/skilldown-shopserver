@@ -1,38 +1,107 @@
+const fs = require('fs');
 
+const priceFilePath = "items.txt";
+function loadItemPrices() {
+  try {
+    const fileData = fs.readFileSync(priceFilePath, "utf8");
+    const items = fileData.split("\n").map(item => item.trim()).filter(Boolean);
 
+    const itemPrices = new Map();
+    items.forEach(item => {
+      const [itemId, price] = item.split(":");
+      if (itemId && price) {
+        itemPrices.set(itemId, parseInt(price, 10));
+      }
+    });
+
+    return itemPrices;
+  } catch (err) {
+    console.error("Error reading item prices from file:", err);
+    return new Map();
+  }
+}
+
+// Initialize item prices
+const itemPrices = loadItemPrices();
+
+// Function to get the price for an item
+function getItemPrice(itemId) {
+return itemPrices.get(itemId) || null;
+}
+// Function to get the price for an item
 const itemPrefixes = ["A", "B", "A", "B", "A", "B", "I", "P"];
 
 const maxrotationcounter = 6;
 
-
+// Updated structure to include itemOfferName
 const userFriendlyDateConfig = [
-  "12-24 A024 B021 A013 B010 A017 B014", // Christmas
-  // "12-25 A024 B021 A013 B010 A017 B014", // Christmas
-  "5-26 I014 B027 A037 B028 P009 B005", // Halloween
-  "7-19 I007 I005 I003 I002 I008 I009 I001 I004", // Partytime
-  "1-1 A027 I001 I003 I005 P005 P006",
-  "8-19 I007 I004 I003 I002 I001 I005",
-  "2-26 A036 B027 A035 B026 P003 P008 I007 I005",
-  "4-17 A036 B027 A035 B026 P003 P008 I007 I005",
+  {
+    date: "12-24", // Christmas
+    items: [
+      { id: "A024", offertext: "Holiday Special" },
+      { id: "B021", offertext: "Christmas Deal" },
+      { id: "A013" },
+      { id: "B010" },
+      { id: "A017" },
+      { id: "B014" }
+    ],
+    theme: "christmas"
+  },
+  {
+    date: "8-26", // Halloween
+    items: [
+      { id: "I014", price: 56, offertext: "SPECIAL OFFER!" },
+      { id: "B027", price: 696, offertext: "Halloween Deal" },
+      { id: "A037", price: 488 },
+      { id: "B028" },
+      { id: "P009" },
+      { id: "B005" }
+    ],
+    theme: "partytime"
+  },
+  {
+    date: "7-19", // Partytime
+    items: [
+      { id: "I007" },
+      { id: "I005" },
+      { id: "I003" },
+      { id: "I002" },
+      { id: "I008" },
+      { id: "I009" },
+      { id: "I001" },
+      { id: "I004" }
+    ],
+    theme: "partytime"
+  },
+  // Add additional date configurations as needed
 ];
 
-const userFriendlyDateTheme = [
-  "5-15 christmas", // Christmas
-  "7-19 partytime",
-  "5-28 partytime",
-];
+// Generate specialDateConfig and specialDateTheme from the combined structure
+const specialDateConfig = userFriendlyDateConfig.reduce((acc, { date, items }) => {
+  acc[date] = items.map(({ id, price, normalprice, offertext }) => {
 
-const specialDateConfig = userFriendlyDateConfig.reduce((acc, entry) => {
-  const [date, ...items] = entry.split(' ');
-  acc[date] = items;
+    const item = {
+      itemId: id,
+      price: price || getItemPrice(id),
+      offertext: offertext || "NEW ITEM",
+    };
+    
+    if (item.price !== getItemPrice(id)) {
+      item.normalprice = normalprice || getItemPrice(id);
+    }
+
+    return item;
+    });
+  
   return acc;
 }, {});
 
-const specialDateTheme = userFriendlyDateTheme.reduce((acc, entry) => {
-  const [date, theme] = entry.split(' ');
-  acc[date] = [theme];
+const specialDateTheme = userFriendlyDateConfig.reduce((acc, { date, theme }) => {
+  acc[date] = theme;
   return acc;
 }, {});
+
+
 
 module.exports = {
   itemPrefixes,
@@ -40,3 +109,6 @@ module.exports = {
   specialDateTheme,
   maxrotationcounter,
 };
+
+
+
