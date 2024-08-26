@@ -51,10 +51,10 @@ const userFriendlyDateConfig = [
     date: "8-26", // Halloween
     items: [
       { id: "I014", price: 56, offertext: "SPECIAL OFFER!" },
-      { id: "B027", price: 696, offertext: "Halloween Deal" },
+      { id: "B027", price: 696 },
       { id: "A037", price: 488 },
       { id: "B028" },
-      { id: "P009" },
+      { id: "P009", price: 2, offertext: "5 MILLION TAKEDOWN REWARD!" },
       { id: "B005" }
     ],
     theme: "partytime"
