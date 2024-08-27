@@ -45,7 +45,7 @@ startServer();
 const db = client.db("Cluster0");
 const itemDataCollection = db.collection("item_data");
 const PackItemsCollection = db.collection("packitems");
-const shopcollection = db.collection("ShopCollection");
+const shopcollection = db.collection("serverconfig");
 
 async function getItemData() {
   const itemsData = fs.readFileSync("items.txt", "utf8");
