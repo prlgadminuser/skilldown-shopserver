@@ -48,7 +48,7 @@ const userFriendlyDateConfig = [
     theme: "christmas"
   },
   {
-    date: "9-6", // Halloween
+    date: "9-5", // Halloween
     items: [
       { id: "I014", price: 56, offertext: "SPECIAL OFFER!" },
       { id: "B027", price: 696 },
