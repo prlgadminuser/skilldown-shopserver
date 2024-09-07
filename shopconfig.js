@@ -36,7 +36,7 @@ const maxrotationcounter = 6;
 // Updated structure to include itemOfferName
 const userFriendlyDateConfig = [
   {
-    date: "9-7", // Christmas
+    date: "9-2", // Christmas
     items: [
       { id: "A024", offertext: "Holiday Special" },
       { id: "B021", offertext: "Christmas Deal" },
