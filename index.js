@@ -260,7 +260,7 @@ function applyDiscount(items) {
   const itemKeys = Object.keys(items);
 
   // Determine how many items to discount (between 1 and 3)
-  const numDiscounts = Math.floor(Math.random() * 6) + 1;
+  const numDiscounts = Math.floor(Math.random() * 3) + 1;
 
   // Shuffle the keys and pick the first 'numDiscounts' keys
   const discountKeys = itemKeys.sort(() => 0.5 - Math.random()).slice(0, numDiscounts);
