@@ -257,7 +257,7 @@ function parseItem(item) {
 
 function applyDiscount(items) {
   // Get an array of the item keys
-  const itemKeys = Object.keys(items);
+   const itemKeys = Object.keys(items).filter(key => items[key].price > 0);
 
   // Determine how many items to discount (between 1 and 3)
   const numDiscounts = Math.floor(Math.random() * 3) + 1;
