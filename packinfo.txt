@@ -1,0 +1,93 @@
+A001:0 // Explorer hat
+A002:0 // weird mask
+A003:60 // gang mask
+A004:90 // burning hot angel
+A005:130 // gang mask (glow)
+A006:45 // slo factory hat
+A007:90 // star hat (grey)
+A008:90 // star hat (purple)
+A009:90 // star hat (b w)
+A010:120 // star hat (multicolored)
+A011:70 // big twists
+A012:130 // sunny honey fire
+A013:70 // pixelated hot cheeto
+A014:120 // fuzzy heart
+A015:60 // tactical cyber
+A016:130 // clown hat
+A017:130 // nthing pixilated
+A018:100 // magic specialist
+A019:90 // glowing hero
+A020:30 // the chiller
+A021:70 // tropical king
+A022:150 // dream guard
+A023:30 // shiny pixel glasses
+A024:0 // the real santa
+A025:120 // black wizard
+A026:100 // lucky plucky
+A027:30 // New Year's Hat
+A028:150 // astro
+A029:100 // chrono expert
+A030:70 // deep diver
+A031:30 // mod cut
+A032:150 // net jumper
+A033:180 // arcade game
+A034:100 // comic cuisine chef
+A035:130 // hypersonic robot
+A036:200 // party cracker
+A037:200 // Mr. Magicstone
+
+B001:120 // gang member
+B002:140 // burning hot angel
+B003:90 // slo factory hat
+B004:120 // star top (grey)
+B005:120 // star top (purple)
+B006:120 // star top (b w)
+B007:160 // star top (multicolored)
+B008:90 // basic top
+B009:160 // sunny honey fire
+B010:130 // pixelated hot cheeto
+B011:140 // fuzzy heart
+B012:160 // tactical cyber
+B013:120 // clown
+B014:240 // nthing pixilated
+B015:140 // magic specialist
+B016:140 // glowing hero
+B017:90 // chiller
+B018:120 // tropical king
+B019:240 // dream guard
+B020:200 // black wizard
+B021:0 // the real santa
+B022:160 // astro
+B023:200 // net jumper
+B024:20 // random shirt
+B025:100 // comic cuisine chef
+B026:140 // hypersonic robot
+B027:200 // party cracker
+B028:200 // Mr. Magicstone
+
+I001:400 // broken dream
+I002:400 // beam flash
+I003:300 // dark night
+I004:300 // burning fire
+I005:400 // gears
+I006:300 // skilledween
+I007:500 // ninja master
+I008:500 // abonded island
+I009:300 // spectra cubes
+I010:300 // chemical crash
+I011:300 // Chronomatic
+I012:200 // sea life
+I013:500 // pinball machine
+I014:300 // crazy music party
+I015:100 // og player
+I016:200 // storm of magic
+
+P001:250 // in a rush
+P002:200 // clear the mind
+P003:350 // ninja skill
+P004:200 // itch
+P005:250 // jump around
+P006:350 // rocket ride
+P007:300 // space jumping
+P008:350 // no explanations
+P009:1450 // enchanted
