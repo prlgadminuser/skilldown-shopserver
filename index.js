@@ -255,13 +255,17 @@ function parseItem(item) {
   return { itemId, price };
 }
 
+function getRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 function applyDiscount(items) {
   // Get an array of the item keys
   // const itemKeys = Object.keys(items).filter(key => items[key].price > 0);
     const itemKeys = Object.keys(items);
 
   // Determine how many items to discount (between 1 and 3)
-  const numDiscounts = Math.floor(Math.random() * 3) + 1;
+  const numDiscounts = getRandomNumber(2, 3);
 
   // Shuffle the keys and pick the first 'numDiscounts' keys
   const discountKeys = itemKeys.sort(() => 0.5 - Math.random()).slice(0, numDiscounts);
