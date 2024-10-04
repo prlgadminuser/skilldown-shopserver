@@ -62,7 +62,7 @@ const userFriendlyDateConfig = [
   {
     date: "10-4", // Partytime
     items: [
-      { id: "I007" },
+      { id: "I007", offertext: "SPOOKY HALLOWEEN!", theme: "3"  },
       { id: "I005" },
       { id: "I003" },
       { id: "I002" },
@@ -85,7 +85,7 @@ const specialDateConfig = userFriendlyDateConfig.reduce((acc, { date, items }) =
       itemId: id,
       price: price ?? getItemPriceSafe(id),
       offertext: offertext || "NEW ITEM",
-      theme: theme || undefined,
+        ...(theme != null && { theme }),
     };
 
     if (item.price !== getItemPriceSafe(id)) {
