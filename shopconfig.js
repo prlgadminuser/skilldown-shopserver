@@ -60,7 +60,7 @@ const userFriendlyDateConfig = [
     theme: "partytime"
   },
   {
-    date: "7-19", // Partytime
+    date: "5-10", // Partytime
     items: [
       { id: "I007" },
       { id: "I005" },
@@ -78,13 +78,14 @@ const userFriendlyDateConfig = [
 
 // Generate specialDateConfig and specialDateTheme from the combined structure
 const specialDateConfig = userFriendlyDateConfig.reduce((acc, { date, items }) => {
-  acc[date] = items.map(({ id, price, normalprice, offertext }) => {
+  acc[date] = items.map(({ id, price, normalprice, offertext, theme }) => {
     const getItemPriceSafe = (id) => getItemPrice(id) ?? 0;
 
     const item = {
       itemId: id,
       price: price ?? getItemPriceSafe(id),
       offertext: offertext || "NEW ITEM",
+      theme: theme || undefined,
     };
 
     if (item.price !== getItemPriceSafe(id)) {
