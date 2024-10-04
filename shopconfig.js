@@ -71,7 +71,7 @@ const userFriendlyDateConfig = [
       { id: "I001" },
       { id: "I004" }
     ],
-    theme: "partytime"
+    theme: "halloween"
   },
   // Add additional date configurations as needed
 ];
