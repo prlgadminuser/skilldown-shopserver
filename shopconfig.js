@@ -60,11 +60,11 @@ const userFriendlyDateConfig = [
     theme: "partytime"
   },
   {
-    date: "10-4", // Partytime
+    date: "9-4", // Partytime
     items: [
-      { id: "I007", offertext: "SPOOKY HALLOWEEN!", theme: "3"  },
-      { id: "I005" },
-      { id: "I003" },
+      { id: "I006", offertext: "TRICK OR TREAT BANNER!", theme: "3"  },
+      { id: "A038", offertext: "SKILLEDWEEN ITEM", theme: "3" },
+      { id: "B029", offertext: "SKILLEDWEEN ITEM", theme: "3" },
       { id: "I002" },
       { id: "I008" },
       { id: "I009" },
