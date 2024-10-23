@@ -36,7 +36,7 @@ const maxrotationcounter = 6;
 // Updated structure to include itemOfferName
 const userFriendlyDateConfig = [
    {
-    date: "10-21", // Partytime
+    date: "10-23", // Partytime
     items: [
       { id: "I006", price: "250", offertext: "TRICK OR TREAT BANNER!", theme: "3"  },
       { id: "A038", offertext: "SKILLEDWEEN ITEM", theme: "3" },
