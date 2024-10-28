@@ -49,8 +49,7 @@ const userFriendlyDateConfig = [
     ],
     theme: "halloween"
   },
-
-   {
+  {
     date: "10-30", // Partytime
     items: [
       { id: "I006", price: "250", offertext: "TRICK OR TREAT BANNER!", theme: "3"  },
@@ -64,8 +63,7 @@ const userFriendlyDateConfig = [
     ],
     theme: "halloween"
   },
-
-    {
+  {
     date: "10-31", // Partytime
     items: [
       { id: "I006", price: "250", offertext: "TRICK OR TREAT BANNER!", theme: "3"  },
@@ -78,7 +76,7 @@ const userFriendlyDateConfig = [
       { id: "I004" }
     ],
     theme: "halloween"
-  },
+  }
   // Add additional date configurations as needed
 ];
 
