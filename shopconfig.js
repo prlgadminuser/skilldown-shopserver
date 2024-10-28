@@ -36,7 +36,37 @@ const maxrotationcounter = 6;
 // Updated structure to include itemOfferName
 const userFriendlyDateConfig = [
    {
-    date: "10-23", // Partytime
+    date: "10-28", // Partytime
+    items: [
+      { id: "I006", price: "250", offertext: "TRICK OR TREAT BANNER!", theme: "3"  },
+      { id: "A038", offertext: "SKILLEDWEEN ITEM", theme: "3" },
+      { id: "B029", offertext: "SKILLEDWEEN ITEM", theme: "3" },
+      { id: "I002" },
+      { id: "I008" },
+      { id: "I009" },
+      { id: "I001" },
+      { id: "I004" }
+    ],
+    theme: "halloween"
+  },
+
+   {
+    date: "10-30", // Partytime
+    items: [
+      { id: "I006", price: "250", offertext: "TRICK OR TREAT BANNER!", theme: "3"  },
+      { id: "A038", offertext: "SKILLEDWEEN ITEM", theme: "3" },
+      { id: "B029", offertext: "SKILLEDWEEN ITEM", theme: "3" },
+      { id: "I002" },
+      { id: "I008" },
+      { id: "I009" },
+      { id: "I001" },
+      { id: "I004" }
+    ],
+    theme: "halloween"
+  },
+
+    {
+    date: "10-31", // Partytime
     items: [
       { id: "I006", price: "250", offertext: "TRICK OR TREAT BANNER!", theme: "3"  },
       { id: "A038", offertext: "SKILLEDWEEN ITEM", theme: "3" },
