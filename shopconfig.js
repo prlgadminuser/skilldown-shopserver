@@ -39,9 +39,7 @@ const userFriendlyDateConfig = [
     date: "10-29", // Partytime
     items: [
       { id: "I006", price: "250", offertext: "TRICK OR TREAT BANNER!", theme: "3"  },
-      { id: "A038", offertext: "SKILLEDWEEN ITEM", theme: "3" },
-      { id: "B029", offertext: "SKILLEDWEEN ITEM", theme: "3" },
-      { id: ["A028", "B022"], price: "400", offertext: "ASTRONOMIC OFFER!", normalprice: "500" },
+      { id: ["A038", "B029"], price: "300", offertext: "SKILLEDWEEN OFFER", normalprice: "350", theme: "3" },
       { id: "I002" },
       { id: "I008" },
       { id: "I009" },
