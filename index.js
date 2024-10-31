@@ -283,9 +283,9 @@ function applyDiscount(items) {
 }
 
 function processDailyItemsAndSaveToServer() {
- 
-
   const itemPrices = loadItemPrices();
+
+  // Create dailyItemsWithPrices by mapping item IDs to their prices
   const dailyItemsWithPrices = Object.keys(dailyItems).reduce((result, key) => {
     const item = dailyItems[key];
     const { itemId } = parseItem(item);
@@ -300,15 +300,43 @@ function processDailyItemsAndSaveToServer() {
   const dateString = `${month}-${day}`;
   const theme = specialDateTheme[dateString] || undefined;
 
-  const updatedItems = applyDiscount(dailyItemsWithPrices);
+  // Check for special items on the given date
+  const specialItems = specialDateConfig[dateString]
+    ? createKeyedItems(specialDateConfig[dateString])
+    : {};
 
-  const document = {
-    items: updatedItems,
-    theme: theme,
+  // Apply discounts only to dailyItemsWithPrices
+  const discountedDailyItems = applyDiscount(dailyItemsWithPrices);
+
+  // Re-key specialItems starting from key '1'
+  const rekeyedSpecialItems = Object.keys(specialItems).reduce((result, key, index) => {
+    result[index + 1] = specialItems[key];
+    return result;
+  }, {});
+
+  // Find the next key after the last special item key
+  const nextKey = Object.keys(rekeyedSpecialItems).length + 1;
+
+  // Re-key discountedDailyItems starting from nextKey
+  const rekeyedDailyItems = Object.keys(discountedDailyItems).reduce((result, key, index) => {
+    result[nextKey + index] = discountedDailyItems[key];
+    return result;
+  }, {});
+
+  // Combine re-keyed special items and re-keyed daily items
+  const finalItems = {
+    ...rekeyedSpecialItems,
+    ...rekeyedDailyItems,
   };
 
-  
+  // Prepare the final document with combined items and theme
+  const document = {
+    _id: "dailyItems",
+    items: finalItems,
+    theme: theme || "default",
+  };
 
+  // Save the final document to the database with upsert option
   shopcollection.updateOne(
     { _id: "dailyItems" },
     { $set: document },
@@ -316,32 +344,9 @@ function processDailyItemsAndSaveToServer() {
   );
 }
 
-function processSpecialItemsAndSaveToServer() {
- 
-  
-  const date = new Date();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-  const dateString = `${month}-${day}`;
 
-  const specialItems = specialDateConfig[dateString];
 
-  if (specialItems) {
-    dailyItems = createKeyedItems(specialItems);
-  
-    saveDailyRotation();
-    const document = {
-      items: dailyItems,
-      theme: specialDateTheme[dateString] || undefined,
-    };
 
-    shopcollection.updateOne(
-      { _id: "dailyItems" },
-      { $set: document },
-      { upsert: true }
-    );
-  }
-}
 
 function incrementShopUpdateCounter() {
   const counter = getShopUpdateCounter() + 1;
@@ -417,11 +422,8 @@ function isSpecialDate() {
 }
 
 function setSpecialDailyItems() {
-  if (isSpecialDate()) {
-    processSpecialItemsAndSaveToServer();
-  } else {
     selectDailyItems();
-  }
+ 
 }
 
 function createKeyedItems(items) {
