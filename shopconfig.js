@@ -63,7 +63,7 @@ const userFriendlyDateConfig = [
       { id: ["A033", "I013"], price: "300", offertext: "ARCADE SEASON RETURNS!", theme: "2" },
     ],
     theme: "halloween"
-  },
+  }
   
 
 ];
