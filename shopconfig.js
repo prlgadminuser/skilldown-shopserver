@@ -35,46 +35,37 @@ const maxrotationcounter = 6;
 
 // Updated structure to include itemOfferName
 const userFriendlyDateConfig = [
+  
    {
     date: "10-29", // Partytime
     items: [
       { id: "I006", price: "250", offertext: "TRICK OR TREAT BANNER!", theme: "3"  },
       { id: ["A038", "B029"], price: "300", offertext: "SKILLEDWEEN OFFER", normalprice: "350", theme: "3" },
-      { id: "I002" },
-      { id: "I008" },
-      { id: "I009" },
-      { id: "I001" },
-      { id: "I004" }
     ],
     theme: "halloween"
   },
+  
+  
   {
-    date: "10-30", // Partytime
+    date: "10-30", 
     items: [
       { id: "I006", price: "250", offertext: "TRICK OR TREAT BANNER!", theme: "3"  },
       { id: ["A038", "B029"], price: "300", offertext: "SKILLEDWEEN OFFER", normalprice: "350", theme: "3" },
-      { id: "I002" },
-      { id: "I008" },
-      { id: "I009" },
-      { id: "I001" },
-      { id: "I004" }
     ],
     theme: "halloween"
   },
+
+  
   {
-    date: "10-31", // Partytime
+    date: "11-2", 
     items: [
        { id: "I006", price: "250", offertext: "TRICK OR TREAT BANNER!", theme: "3"  },
-      { id: ["A038", "B029"], price: "300", offertext: "SKILLEDWEEN OFFER", normalprice: "350", theme: "3" },
-      { id: "I002" },
-      { id: "I008" },
-      { id: "I009" },
-      { id: "I001" },
-      { id: "I004" }
+      { id: ["A033", "I013"], price: "300", offertext: "ARCADE SEASON RETURNS!", theme: "2" },
     ],
     theme: "halloween"
-  }
-  // Add additional date configurations as needed
+  },
+  
+
 ];
 
 // Generate specialDateConfig and specialDateTheme from the combined structure
