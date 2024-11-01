@@ -71,30 +71,30 @@ const userFriendlyDateConfig = [
 // Generate specialDateConfig and specialDateTheme from the combined structure
 const specialDateConfig = userFriendlyDateConfig.reduce((acc, { date, items }) => {
   acc[date] = items.map(({ id, price, normalprice, offertext, theme }) => {
+    // Helper function to get the item price safely
     const getItemPriceSafe = (id) => getItemPrice(id) ?? 0;
+
+    // If `id` is an array, calculate combined price
+    const itemIds = Array.isArray(id) ? id : [id];
+    const combinedNormalPrice = itemIds.reduce((total, itemId) => total + getItemPriceSafe(itemId), 0);
 
     const item = {
       itemId: id,
-      price: price ?? getItemPriceSafe(id),
+      price: price ?? combinedNormalPrice, // Use provided price or combined default price
       offertext: offertext || "NEW ITEM",
-        ...(theme != null && { theme }),
+      ...(theme != null && { theme }),
     };
 
-    if (item.price !== getItemPriceSafe(id)) {
-      item.normalprice = normalprice ?? getItemPriceSafe(id);
+    // Set normalprice only if it differs from combined default price
+    if (item.price !== combinedNormalPrice) {
+      item.normalprice = normalprice ?? combinedNormalPrice;
     }
 
     return item;
-    });
-  
+  });
+
   return acc;
 }, {});
-
-const specialDateTheme = userFriendlyDateConfig.reduce((acc, { date, theme }) => {
-  acc[date] = theme;
-  return acc;
-}, {});
-
 
 
 module.exports = {
