@@ -96,6 +96,11 @@ const specialDateConfig = userFriendlyDateConfig.reduce((acc, { date, items }) =
   return acc;
 }, {});
 
+const specialDateTheme = userFriendlyDateConfig.reduce((acc, { date, theme }) => {
+  acc[date] = theme;
+  return acc;
+}, {});
+
 
 module.exports = {
   itemPrefixes,
