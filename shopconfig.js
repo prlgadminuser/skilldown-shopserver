@@ -57,7 +57,7 @@ const userFriendlyDateConfig = [
 
   
   {
-    date: "11-2", 
+    date: "11-23", 
     items: [
        { id: "I006", price: "250", offertext: "TRICK OR TREAT BANNER!", theme: "3"  },
       { id: ["A033", "I013"], price: "300", offertext: "ARCADE SEASON RETURNS!", theme: "2" },
