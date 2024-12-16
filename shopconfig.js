@@ -31,7 +31,7 @@ return itemPrices.get(itemId) || null;
 // Function to get the price for an item
 const itemPrefixes = ["A", "B", "A", "B", "A", "B", "I", "P"];
 
-const maxrotationcounter = 6;
+const maxrotationcounter = 5;
 
 // Updated structure to include itemOfferName
 const userFriendlyDateConfig = [
