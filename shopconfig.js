@@ -37,7 +37,7 @@ const maxrotationcounter = 5;
 const userFriendlyDateConfig = [
   
    {
-    date: "12-19", // Partytime
+    date: "11-19", // Partytime
     items: [
       { id: "I006", price: "250", currency: "gems", offertext: "TRICK OR TREAT BANNER!", theme: "3"  },
       { id: ["A038", "B029"], price: "300", currency: "gems", offertext: "SKILLEDWEEN OFFER", normalprice: "350", theme: "3" },
