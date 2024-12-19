@@ -37,10 +37,10 @@ const maxrotationcounter = 5;
 const userFriendlyDateConfig = [
   
    {
-    date: "10-29", // Partytime
+    date: "12-19", // Partytime
     items: [
-      { id: "I006", price: "250", offertext: "TRICK OR TREAT BANNER!", theme: "3"  },
-      { id: ["A038", "B029"], price: "300", offertext: "SKILLEDWEEN OFFER", normalprice: "350", theme: "3" },
+      { id: "I006", price: "250", currency: "gems", offertext: "TRICK OR TREAT BANNER!", theme: "3"  },
+      { id: ["A038", "B029"], price: "300", currency: "gems", offertext: "SKILLEDWEEN OFFER", normalprice: "350", theme: "3" },
     ],
     theme: "halloween"
   },
@@ -70,7 +70,7 @@ const userFriendlyDateConfig = [
 
 // Generate specialDateConfig and specialDateTheme from the combined structure
 const specialDateConfig = userFriendlyDateConfig.reduce((acc, { date, items }) => {
-  acc[date] = items.map(({ id, price, normalprice, offertext, theme }) => {
+  acc[date] = items.map(({ id, price, currency, normalprice, offertext, theme }) => {
     // Helper function to get the item price safely
     const getItemPriceSafe = (id) => getItemPrice(id) ?? 0;
 
@@ -81,6 +81,7 @@ const specialDateConfig = userFriendlyDateConfig.reduce((acc, { date, items }) =
     const item = {
       itemId: id,
       price: price ?? combinedNormalPrice, // Use provided price or combined default price
+      currency: currency || "coins",
       offertext: offertext || "NEW ITEM",
       ...(theme != null && { theme }),
     };
