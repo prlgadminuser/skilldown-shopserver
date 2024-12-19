@@ -264,6 +264,11 @@ function applyDiscount(items) {
   // const itemKeys = Object.keys(items).filter(key => items[key].price > 0);
     const itemKeys = Object.keys(items);
 
+   itemKeys.forEach(key => {
+      const item = items[key];
+      item.currency = "coins";
+  });
+
   // Determine how many items to discount (between 1 and 3)
   const numDiscounts = getRandomNumber(2, 3);
 
