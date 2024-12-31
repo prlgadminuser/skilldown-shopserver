@@ -66,11 +66,11 @@ const userFriendlyDateConfig = [
   },
 
    {
-    date: "12-31", 
+    date: "1-1", 
     items: [
        { id: "A027", price: "90", offertext: "2025 NEW YEAR OFFER!", theme: "2"  },
     ],
-    theme: "halloween"
+    theme: "partytime"
   },
   
 
