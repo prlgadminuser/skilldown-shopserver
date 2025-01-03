@@ -26,75 +26,70 @@ const itemPrices = loadItemPrices();
 
 // Function to get the price for an item
 function getItemPrice(itemId) {
-return itemPrices.get(itemId) || null;
+  return itemPrices.get(itemId) || null;
 }
-// Function to get the price for an item
+
 const itemPrefixes = ["A", "B", "A", "B", "A", "B", "I", "P"];
 
 const maxrotationcounter = 5;
 
-// Updated structure to include itemOfferName
+// Updated structure to include itemOfferName and boxPurchases
 const userFriendlyDateConfig = [
-  
-   {
+  {
     date: "11-19", // Partytime
     items: [
-      { id: "I006", price: "250", currency: "gems", offertext: "TRICK OR TREAT BANNER!", theme: "3"  },
+      { id: "I006", price: "250", currency: "gems", offertext: "TRICK OR TREAT BANNER!", theme: "3" },
       { id: ["A038", "B029"], price: "300", currency: "gems", offertext: "SKILLEDWEEN OFFER", normalprice: "350", theme: "3" },
+      { id: "5 Boxes A", price: "450", quantity: 5, currency: "gems", offertext: "Bulk purchase of 5 Box A", theme: "special_offer" },
+      { id: "Season Coin Pack", price: "200", quantity: 1, currency: "coins", offertext: "A single Season Coin pack purchase", theme: "special_offer" }
     ],
     theme: "halloween"
   },
-  
-  
   {
     date: "10-30", 
     items: [
-      { id: "I006", price: "250", offertext: "TRICK OR TREAT BANNER!", theme: "3"  },
+      { id: "I006", price: "250", offertext: "TRICK OR TREAT BANNER!", theme: "3" },
       { id: ["A038", "B029"], price: "300", offertext: "SKILLEDWEEN OFFER", normalprice: "350", theme: "3" },
+      { id: "5 Boxes A", price: "450", quantity: 5, currency: "gems", offertext: "Bulk purchase of 5 Box A", theme: "special_offer" }
     ],
     theme: "halloween"
   },
-
-  
   {
     date: "11-23", 
     items: [
-       { id: "I006", price: "250", offertext: "TRICK OR TREAT BANNER!", theme: "3"  },
+      { id: "I006", price: "250", offertext: "TRICK OR TREAT BANNER!", theme: "3" },
       { id: ["A033", "I013"], price: "300", offertext: "ARCADE SEASON RETURNS!", theme: "2" },
+      { id: "5 Season Coin Packs", price: "900", quantity: 5, currency: "coins", offertext: "Bulk purchase of 5 Season Coin packs", theme: "special_offer" }
     ],
     theme: "halloween"
   },
-
-   {
+  {
     date: "1-1", 
     items: [
-       { id: "A027", price: "90", offertext: "2025 NEW YEAR OFFER!", theme: "2"  },
+      { id: "A027", price: "90", offertext: "2025 NEW YEAR OFFER!", theme: "2" },
+      { id: "Box A", price: "100", quantity: 1, currency: "gems", offertext: "A single Box A purchase", theme: "special_offer" }
     ],
     theme: "partytime"
   },
-  
-
 ];
 
 // Generate specialDateConfig and specialDateTheme from the combined structure
 const specialDateConfig = userFriendlyDateConfig.reduce((acc, { date, items }) => {
-  acc[date] = items.map(({ id, price, currency, normalprice, offertext, theme }) => {
-    // Helper function to get the item price safely
+  acc[date] = items.map(({ id, price, currency, normalprice, offertext, theme, quantity }) => {
     const getItemPriceSafe = (id) => getItemPrice(id) ?? 0;
 
-    // If `id` is an array, calculate combined price
     const itemIds = Array.isArray(id) ? id : [id];
     const combinedNormalPrice = itemIds.reduce((total, itemId) => total + getItemPriceSafe(itemId), 0);
 
     const item = {
       itemId: id,
-      price: price ?? combinedNormalPrice, // Use provided price or combined default price
+      price: price ?? combinedNormalPrice,
+      quantity: quantity || 1, // Quantity added for box purchases
       currency: currency || "coins",
       offertext: offertext || "NEW ITEM",
       ...(theme != null && { theme }),
     };
 
-    // Set normalprice only if it differs from combined default price
     if (item.price !== combinedNormalPrice) {
       item.normalprice = normalprice ?? combinedNormalPrice;
     }
@@ -110,13 +105,14 @@ const specialDateTheme = userFriendlyDateConfig.reduce((acc, { date, theme }) =>
   return acc;
 }, {});
 
-
+// Exporting the updated module
 module.exports = {
   itemPrefixes,
   specialDateConfig,
   specialDateTheme,
   maxrotationcounter,
 };
+
 
 
 
