@@ -59,15 +59,15 @@ const userFriendlyDateConfig = [
     items: [
       { id: "I006", price: "250", offertext: "TRICK OR TREAT BANNER!", theme: "3" },
       { id: ["A033", "I013"], price: "300", offertext: "ARCADE SEASON RETURNS!", theme: "2" },
-      { id: "5 Season Coin Packs", price: "900", quantity: 5, currency: "coins", offertext: "Bulk purchase of 5 Season Coin packs", theme: "special_offer" }
+      { id: "seasoncoins", price: "900", quantity: 5, currency: "coins", offertext: "Bulk purchase of 5 Season Coin packs", theme: "special_offer" }
     ],
     theme: "halloween"
   },
   {
-    date: "1-1", 
+    date: "1-4", 
     items: [
       { id: "A027", price: "90", offertext: "2025 NEW YEAR OFFER!", theme: "2" },
-      { id: "Box A", price: "100", quantity: 1, currency: "gems", offertext: "A single Box A purchase", theme: "special_offer" }
+      { id: "box", price: "0", quantity: 67, currency: "coins", offertext: "MAINTENANCE COMPENSATION", theme: "special_offer" }
     ],
     theme: "partytime"
   },
