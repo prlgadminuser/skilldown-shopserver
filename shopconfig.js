@@ -41,7 +41,6 @@ const userFriendlyDateConfig = [
       { id: "I006", price: "250", currency: "gems", offertext: "TRICK OR TREAT BANNER!", theme: "3" },
       { id: ["A038", "B029"], price: "300", currency: "gems", offertext: "SKILLEDWEEN OFFER", normalprice: "350", theme: "3" },
       { id: "5 Boxes A", price: "450", quantity: 5, currency: "gems", offertext: "Bulk purchase of 5 Box A", theme: "special_offer" },
-      { id: "Season Coin Pack", price: "200", quantity: 1, currency: "coins", offertext: "A single Season Coin pack purchase", theme: "special_offer" }
     ],
     theme: "halloween"
   },
@@ -50,7 +49,6 @@ const userFriendlyDateConfig = [
     items: [
       { id: "I006", price: "250", offertext: "TRICK OR TREAT BANNER!", theme: "3" },
       { id: ["A038", "B029"], price: "300", offertext: "SKILLEDWEEN OFFER", normalprice: "350", theme: "3" },
-      { id: "5 Boxes A", price: "450", quantity: 5, currency: "gems", offertext: "Bulk purchase of 5 Box A", theme: "special_offer" }
     ],
     theme: "halloween"
   },
@@ -59,7 +57,6 @@ const userFriendlyDateConfig = [
     items: [
       { id: "I006", price: "250", offertext: "TRICK OR TREAT BANNER!", theme: "3" },
       { id: ["A033", "I013"], price: "300", offertext: "ARCADE SEASON RETURNS!", theme: "2" },
-      { id: "seasoncoins", price: "900", quantity: 5, currency: "coins", offertext: "Bulk purchase of 5 Season Coin packs", theme: "special_offer" }
     ],
     theme: "halloween"
   },
@@ -67,7 +64,7 @@ const userFriendlyDateConfig = [
     date: "1-4", 
     items: [
       { id: "A027", price: "90", offertext: "2025 NEW YEAR OFFER!", theme: "2" },
-      { id: "box", price: "0", quantity: 67, currency: "coins", offertext: "MAINTENANCE COMPENSATION", theme: "special_offer" }
+     // { id: "box", price: "0", quantity: 67, currency: "coins", offertext: "MAINTENANCE COMPENSATION", theme: "special_offer" }
     ],
     theme: "partytime"
   },
