@@ -75,7 +75,7 @@ const userFriendlyDateConfig = [
 
 // Generate specialDateConfig and specialDateTheme from the combined structure
 const specialDateConfig = userFriendlyDateConfig.reduce((acc, { date, items }) => {
-  acc[date] = items.map(({ id, price, currency, normalprice, offertext, theme, quantity }) => {
+  acc[date] = items.map(({ id, price, currency, normalprice, offertext, theme, quantity}) => {
     const getItemPriceSafe = (id) => getItemPrice(id) ?? 0;
 
     const itemIds = Array.isArray(id) ? id : [id];
@@ -87,7 +87,8 @@ const specialDateConfig = userFriendlyDateConfig.reduce((acc, { date, items }) =
       quantity: quantity || 1, // Quantity added for box purchases
       currency: currency || "coins",
       offertext: offertext || "NEW ITEM",
-      ...(theme != null && { theme }),
+      offerid: Math.random().toString(36).substring(2, 7),
+       ...(theme != null && { theme }),
     };
 
     if (item.price !== combinedNormalPrice) {
