@@ -70,21 +70,8 @@ const userFriendlyDateConfig = [
   },
 ];
 
-// Always free items (example)
-const alwaysFreeItems = [
-  {
-    id: "A001", price: "0", currency: "coins", offertext: "FREE ITEM!", theme: "2"
-  },
-  {
-    id: "A002", price: "0", currency: "coins", offertext: "FREE ITEM 2!", theme: "2"
-  }
-];
-
-// Merge alwaysFreeItems with userFriendlyDateConfig (alwaysFreeItems come first)
-const specialDateConfig = [
-  ...alwaysFreeItems, // Always free items first
-  ...userFriendlyDateConfig
-].reduce((acc, { date, items }) => {
+// Generate specialDateConfig and specialDateTheme from the combined structure
+const specialDateConfig = userFriendlyDateConfig.reduce((acc, { date, items }) => {
   acc[date] = items.map(({ id, price, currency, normalprice, offertext, theme, quantity}) => {
     const getItemPriceSafe = (id) => getItemPrice(id) ?? 0;
 
@@ -111,10 +98,7 @@ const specialDateConfig = [
   return acc;
 }, {});
 
-const specialDateTheme = [
-  ...alwaysFreeItems, // Always free items first
-  ...userFriendlyDateConfig
-].reduce((acc, { date, theme }) => {
+const specialDateTheme = userFriendlyDateConfig.reduce((acc, { date, theme }) => {
   acc[date] = theme;
   return acc;
 }, {});
@@ -125,4 +109,4 @@ module.exports = {
   specialDateConfig,
   specialDateTheme,
   maxrotationcounter,
-};
+}; 
