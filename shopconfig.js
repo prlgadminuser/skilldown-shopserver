@@ -33,11 +33,6 @@ const itemPrefixes = ["A", "B", "A", "B", "A", "B", "I", "P"];
 
 const maxrotationcounter = 5;
 
-const alwaysFreeItems = [
-  { id: ["A001", "A002"], price: "0", offertext: "FREE STARTER ITEMS!", theme: "2" }
-];
-
-
 // Updated structure to include itemOfferName and boxPurchases
 const userFriendlyDateConfig = [
   {
@@ -75,37 +70,51 @@ const userFriendlyDateConfig = [
   },
 ];
 
-// Generate specialDateConfig and specialDateTheme from the combined structure
-const specialDateConfig = userFriendlyDateConfig.reduce((acc, { date, items }) => {
-  acc[date] = [
-    ...alwaysFreeItems, // Always include free items
-    ...items.map(({ id, price, currency, normalprice, offertext, theme, quantity }) => {
-      const getItemPriceSafe = (id) => getItemPrice(id) ?? 0;
+// Always free items (example)
+const alwaysFreeItems = [
+  {
+    id: "A001", price: "0", currency: "coins", offertext: "FREE ITEM!", theme: "2"
+  },
+  {
+    id: "A002", price: "0", currency: "coins", offertext: "FREE ITEM 2!", theme: "2"
+  }
+];
 
-      const itemIds = Array.isArray(id) ? id : [id];
-      const combinedNormalPrice = itemIds.reduce((total, itemId) => total + getItemPriceSafe(itemId), 0);
+// Merge alwaysFreeItems with userFriendlyDateConfig (alwaysFreeItems come first)
+const specialDateConfig = [
+  ...alwaysFreeItems, // Always free items first
+  ...userFriendlyDateConfig
+].reduce((acc, { date, items }) => {
+  acc[date] = items.map(({ id, price, currency, normalprice, offertext, theme, quantity}) => {
+    const getItemPriceSafe = (id) => getItemPrice(id) ?? 0;
 
-      const item = {
-        itemId: id,
-        price: price ?? combinedNormalPrice,
-        quantity: quantity || 1, // Quantity added for box purchases
-        currency: currency || "coins",
-        offertext: offertext || "NEW ITEM",
-        offerid: Math.random().toString(36).substring(2, 7),
-        ...(theme != null && { theme }),
-      };
+    const itemIds = Array.isArray(id) ? id : [id];
+    const combinedNormalPrice = itemIds.reduce((total, itemId) => total + getItemPriceSafe(itemId), 0);
 
-      if (item.price !== combinedNormalPrice) {
-        item.normalprice = normalprice ?? combinedNormalPrice;
-      }
+    const item = {
+      itemId: id,
+      price: price ?? combinedNormalPrice,
+      quantity: quantity || 1, // Quantity added for box purchases
+      currency: currency || "coins",
+      offertext: offertext || "NEW ITEM",
+      offerid: Math.random().toString(36).substring(2, 7),
+       ...(theme != null && { theme }),
+    };
 
-      return item;
-    })
-  ];
+    if (item.price !== combinedNormalPrice) {
+      item.normalprice = normalprice ?? combinedNormalPrice;
+    }
+
+    return item;
+  });
+
   return acc;
 }, {});
 
-const specialDateTheme = userFriendlyDateConfig.reduce((acc, { date, theme }) => {
+const specialDateTheme = [
+  ...alwaysFreeItems, // Always free items first
+  ...userFriendlyDateConfig
+].reduce((acc, { date, theme }) => {
   acc[date] = theme;
   return acc;
 }, {});
@@ -117,7 +126,3 @@ module.exports = {
   specialDateTheme,
   maxrotationcounter,
 };
-
-
-
-
