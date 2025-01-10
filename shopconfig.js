@@ -59,30 +59,21 @@ function formatDate(date) {
 // Updated structure with startDate and endDate
 const userFriendlyDateConfig = [
   {
-    startDate: "01-01",  // Start of the year
+    startDate: "1-1",  // Start of the year
     endDate: "12-31",    // End of the year
     items: [
       { id: ["A001", "A002"], price: "0", currency: "coins", offertext: "STARTER PACK", normalprice: "350", theme: "2" },
     ],
-    theme: "halloween"
+    theme: "default"
   },
   {
-    startDate: "1-3", 
-    endDate: "1-23", 
+    startDate: "10-28", 
+    endDate: "11-1", 
     items: [
       { id: "I006", price: "250", offertext: "TRICK OR TREAT BANNER!", theme: "3" },
       { id: ["A038", "B029"], price: "300", offertext: "SKILLEDWEEN OFFER", normalprice: "350", theme: "3" },
     ],
-    theme: "halloween"
-  },
-  {
-    startDate: "11-23", 
-    endDate: "11-23", 
-    items: [
-      { id: "I006", price: "250", offertext: "TRICK OR TREAT BANNER!", theme: "3" },
-      { id: ["A033", "I013"], price: "300", offertext: "ARCADE SEASON RETURNS!", theme: "2" },
-    ],
-    theme: "halloween"
+    theme: "default"
   },
   {
     startDate: "1-4", 
@@ -90,7 +81,7 @@ const userFriendlyDateConfig = [
     items: [
       { id: "A027", price: "90", offertext: "2025 NEW YEAR OFFER!", theme: "2" },
     ],
-    theme: "partytime"
+    theme: "default"
   },
 ];
 
