@@ -245,8 +245,8 @@ function processDailyItemsAndSaveToServer() {
   // Apply discounts only to dailyItemsWithPrices
   const discountedDailyItems = applyDiscount(dailyItemsWithPrices);
 
-     const freeitems1 = FreeConfig
-    ? createKeyedItems(FreeConfig)
+     const freeitems1 = FreeConfig["1"]
+    ? createKeyedItems(FreeConfig["1"])
     : {};
 
   // Re-key specialItems starting from key '1'
