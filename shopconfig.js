@@ -35,26 +35,14 @@ const itemPrefixes = ["A", "B", "A", "B", "A", "B", "I", "P"];
 const maxrotationcounter = 5;
 
 // Utility function to generate all dates between start and end date
-function generateDateRange(startDate, endDate) {
+ function generateDateRange(startDate, endDate) {
   const start = new Date(startDate);
   const end = new Date(endDate);
-
-  // Calculate the max range of 2 additional days before and after the start date
-  const rangeStartDate = new Date(start);
-  rangeStartDate.setDate(start.getDate() - 2);  // Subtract 2 days from start date
-  
-  const rangeEndDate = new Date(start);
-  rangeEndDate.setDate(start.getDate() + 2);    // Add 2 days to start date
-
-  // Use the minimum of the actual endDate and the calculated rangeEndDate
-  const finalEndDate = end < rangeEndDate ? end : rangeEndDate;
-  
   const dates = [];
-
-  // Generate the dates between rangeStartDate and finalEndDate
-  while (rangeStartDate <= finalEndDate) {
-    dates.push(formatDate(rangeStartDate));  // Use formatDate to get the proper format
-    rangeStartDate.setDate(rangeStartDate.getDate() + 1);  // Move to the next day
+  
+  while (start <= end) {
+    dates.push(formatDate(start));
+    start.setDate(start.getDate() + 1);
   }
   
   return dates;
