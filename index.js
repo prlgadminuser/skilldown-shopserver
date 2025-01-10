@@ -431,13 +431,11 @@ function setSpecialDailyItems() {
     selectDailyItems();
  
 }
-
 function createKeyedItems(items) {
-  const keyedItems = {};
-  items.forEach((item, index) => {
-    keyedItems[index + 1] = item;
+  // Return an array of items, so it's iterable
+  return items.map((item, index) => {
+    return { ...item, key: index + 1 };  // Assuming you want to include the key in the items
   });
-  return keyedItems;
 }
 
 function initializeItems() {
