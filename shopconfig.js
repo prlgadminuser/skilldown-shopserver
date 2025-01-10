@@ -128,8 +128,6 @@ const specialDateConfig = userFriendlyDateConfig.reduce((acc, { startDate, endDa
   return acc;
 }, {});
 
-console.log(specialDateConfig)
-
 const specialDateTheme = userFriendlyDateConfig.reduce((acc, { startDate, endDate, theme }) => {
   const dateRange = generateDateRange(startDate, endDate);
 
