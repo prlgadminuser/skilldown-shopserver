@@ -39,23 +39,27 @@ function generateDateRange(startDate, endDate) {
   const start = new Date(startDate);
   const end = new Date(endDate);
 
-  // Calculate the maximum range of 2 additional days from the start date
-  const maxEndDate = new Date(start); 
-  maxEndDate.setDate(start.getDate() + 2); // Add 2 days to the start date
+  // Calculate the max range of 2 additional days before and after the start date
+  const rangeStartDate = new Date(start);
+  rangeStartDate.setDate(start.getDate() - 2);  // Subtract 2 days from start date
   
-  // Use the minimum of the actual endDate and the maxEndDate
-  const finalEndDate = end < maxEndDate ? end : maxEndDate;
+  const rangeEndDate = new Date(start);
+  rangeEndDate.setDate(start.getDate() + 2);    // Add 2 days to start date
+
+  // Use the minimum of the actual endDate and the calculated rangeEndDate
+  const finalEndDate = end < rangeEndDate ? end : rangeEndDate;
   
   const dates = [];
 
-  // Generate the dates between startDate and finalEndDate
-  while (start <= finalEndDate) {
-    dates.push(formatDate(start));
-    start.setDate(start.getDate() + 1);
+  // Generate the dates between rangeStartDate and finalEndDate
+  while (rangeStartDate <= finalEndDate) {
+    dates.push(formatDate(rangeStartDate));  // Use formatDate to get the proper format
+    rangeStartDate.setDate(rangeStartDate.getDate() + 1);  // Move to the next day
   }
   
   return dates;
 }
+
 
 
 // Format date to MM-DD format
