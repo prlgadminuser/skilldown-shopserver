@@ -37,8 +37,8 @@ const FreeConfig = [
   {
     items: [
       { id: ["A001", "A002"], price: "0", offertext: "FREE STARTER ITEMS!", theme: "2" },
-    ],
-  },
+      ],
+   },
 ];
 
 // Updated structure to include itemOfferName and boxPurchases
