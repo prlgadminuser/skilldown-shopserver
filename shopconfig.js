@@ -1,6 +1,7 @@
 const fs = require('fs');
 
 const priceFilePath = "items.txt";
+
 function loadItemPrices() {
   try {
     const fileData = fs.readFileSync(priceFilePath, "utf8");
@@ -44,6 +45,7 @@ const FreeConfig = [
     ]
   }
 ];
+
 // Updated structure to include itemOfferName and boxPurchases
 const userFriendlyDateConfig = [
   {
@@ -81,15 +83,21 @@ const userFriendlyDateConfig = [
   },
 ];
 
-const itemstoreduce = {
-    ...FreeConfig,
-    ...userFriendlyDateConfig,
-  };
+// Combine items from FreeConfig and userFriendlyDateConfig
+const itemstoreduce = [
+  ...FreeConfig,
+  ...userFriendlyDateConfig
+];
 
+// Default date to be used when no date is specified
+const DEFAULT_DATE = "01-01"; // You can adjust this date to whatever you prefer (e.g., today's date)
 
 // Generate specialDateConfig and specialDateTheme from the combined structure
 const specialDateConfig = itemstoreduce.reduce((acc, { date, items }) => {
-  acc[date] = items.map(({ id, price, currency, normalprice, offertext, theme, quantity}) => {
+  const effectiveDate = date || DEFAULT_DATE; // Use provided date, or fallback to DEFAULT_DATE
+
+  // Iterate through items to process them
+  items.forEach(({ id, price, currency, normalprice, offertext, theme, quantity }) => {
     const getItemPriceSafe = (id) => getItemPrice(id) ?? 0;
 
     const itemIds = Array.isArray(id) ? id : [id];
@@ -102,21 +110,29 @@ const specialDateConfig = itemstoreduce.reduce((acc, { date, items }) => {
       currency: currency || "coins",
       offertext: offertext || "NEW ITEM",
       offerid: Math.random().toString(36).substring(2, 7),
-       ...(theme != null && { theme }),
+      ...(theme != null && { theme }),
     };
 
     if (item.price !== combinedNormalPrice) {
       item.normalprice = normalprice ?? combinedNormalPrice;
     }
 
-    return item;
+    // Add the item to the correct date entry
+    if (!acc[effectiveDate]) {
+      acc[effectiveDate] = [];
+    }
+
+    acc[effectiveDate].push(item);
   });
 
   return acc;
 }, {});
 
 const specialDateTheme = userFriendlyDateConfig.reduce((acc, { date, theme }) => {
-  acc[date] = theme;
+  const effectiveDate = date || DEFAULT_DATE; // Use provided date, or fallback to DEFAULT_DATE
+  if (date) {
+    acc[effectiveDate] = theme;
+  }
   return acc;
 }, {});
 
