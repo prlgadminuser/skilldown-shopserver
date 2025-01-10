@@ -30,16 +30,10 @@ function getItemPrice(itemId) {
 }
 
 const itemPrefixes = ["A", "B", "A", "B", "A", "B", "I", "P"];
-
 const maxrotationcounter = 5;
-
 const FreeConfig = [
-  {
-    items: [
       { id: ["A001", "A002"], price: "0", offertext: "FREE STARTER ITEMS!", theme: "2" },
-      ],
-  },
-];
+],
 
 // Updated structure to include itemOfferName and boxPurchases
 const userFriendlyDateConfig = [
