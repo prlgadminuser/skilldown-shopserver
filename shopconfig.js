@@ -33,7 +33,7 @@ const itemPrefixes = ["A", "B", "A", "B", "A", "B", "I", "P"];
 
 const maxrotationcounter = 5;
 
-const FreeItems = [
+const FreeConfig = [
   {
     items: [
       { id: ["A001", "A002"], price: "0", offertext: "FREE STARTER ITEMS!", theme: "2" },
@@ -117,5 +117,5 @@ module.exports = {
   specialDateConfig,
   specialDateTheme,
   maxrotationcounter,
-  FreeItems,
+  FreeConfig,
 };
