@@ -221,6 +221,11 @@ function applyDiscount(items) {
   return items;
 }
 
+function isDateInRange(date, startDate, endDate) {
+  return date >= startDate && date <= endDate;
+}
+
+
 function processDailyItemsAndSaveToServer() {
   const itemPrices = loadItemPrices();
 
