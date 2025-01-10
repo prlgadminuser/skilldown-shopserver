@@ -234,25 +234,27 @@ function processDailyItemsAndSaveToServer() {
   }, {});
 
   const date = new Date();
-  const month = date.getMonth() + 1;
+  const month = date.getMonth() + 1; // getMonth() returns 0-indexed month
   const day = date.getDate();
-  const dateString = `${month}-${day}`;
+  const dateString = `${month}-${day}`; // Format the date as MM-DD
   const theme = specialDateTheme[dateString] || undefined;
 
-  // Check for special items on the given date
- 
+  // Check for special items on the given date by comparing against startDate and endDate
+  const specialItems = Object.keys(specialDateConfig).reduce((acc, startDate) => {
+    const config = specialDateConfig[startDate];
+    if (isDateInRange(dateString, config.startDate, config.endDate)) {
+      const keyedItems = createKeyedItems(config.items);
+      acc = { ...acc, ...keyedItems };
+    }
+    return acc;
+  }, {});
 
   // Apply discounts only to dailyItemsWithPrices
   const discountedDailyItems = applyDiscount(dailyItemsWithPrices);
 
-
-   const specialItems = specialDateConfig[dateString]
-    ? createKeyedItems(specialDateConfig[dateString])
-    : {};
-
   // Re-key specialItems starting from key '1'
   const rekeyedSpecialItems = Object.keys(specialItems).reduce((result, key, index) => {
-    result[index + 1] = specialItems[key];
+    result[index + 1] = specialItems[key]; // rekey to start from 1
     return result;
   }, {});
 
@@ -275,7 +277,7 @@ function processDailyItemsAndSaveToServer() {
   const document = {
     _id: "dailyItems",
     items: finalItems,
-    theme: theme || "default",
+    theme: theme || "default", // Default theme if none found
   };
 
   // Save the final document to the database with upsert option
@@ -285,7 +287,6 @@ function processDailyItemsAndSaveToServer() {
     { upsert: true }
   );
 }
-
 
 
 
