@@ -267,7 +267,6 @@ function processDailyItemsAndSaveToServer() {
 
   // Combine re-keyed special items and re-keyed daily items
   const finalItems = {
-    ...freeitems,
     ...rekeyedSpecialItems,
     ...rekeyedDailyItems,
   };
