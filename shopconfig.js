@@ -1,5 +1,6 @@
 const fs = require('fs');
 
+// Original price loading logic
 const priceFilePath = "items.txt";
 function loadItemPrices() {
   try {
@@ -29,14 +30,32 @@ function getItemPrice(itemId) {
   return itemPrices.get(itemId) || null;
 }
 
-const itemPrefixes = ["A", "B", "A", "B", "A", "B", "I", "P"];
+// Utility function to generate all dates between start and end date
+function generateDateRange(startDate, endDate) {
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+  const dates = [];
+  
+  while (start <= end) {
+    dates.push(formatDate(start));
+    start.setDate(start.getDate() + 1);
+  }
+  
+  return dates;
+}
 
-const maxrotationcounter = 5;
+// Format date to MM-DD format
+function formatDate(date) {
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${month}-${day}`;
+}
 
-// Updated structure to include itemOfferName and boxPurchases
+// Updated structure with startDate and endDate
 const userFriendlyDateConfig = [
   {
-    date: "11-19", // Partytime
+    startDate: "11-19", // Partytime
+    endDate: "11-19",
     items: [
       { id: "I006", price: "250", currency: "gems", offertext: "TRICK OR TREAT BANNER!", theme: "3" },
       { id: ["A038", "B029"], price: "300", currency: "gems", offertext: "SKILLEDWEEN OFFER", normalprice: "350", theme: "3" },
@@ -45,7 +64,8 @@ const userFriendlyDateConfig = [
     theme: "halloween"
   },
   {
-    date: "10-30", 
+    startDate: "10-30", 
+    endDate: "10-30", 
     items: [
       { id: "I006", price: "250", offertext: "TRICK OR TREAT BANNER!", theme: "3" },
       { id: ["A038", "B029"], price: "300", offertext: "SKILLEDWEEN OFFER", normalprice: "350", theme: "3" },
@@ -53,7 +73,8 @@ const userFriendlyDateConfig = [
     theme: "halloween"
   },
   {
-    date: "11-23", 
+    startDate: "11-23", 
+    endDate: "11-23", 
     items: [
       { id: "I006", price: "250", offertext: "TRICK OR TREAT BANNER!", theme: "3" },
       { id: ["A033", "I013"], price: "300", offertext: "ARCADE SEASON RETURNS!", theme: "2" },
@@ -61,45 +82,56 @@ const userFriendlyDateConfig = [
     theme: "halloween"
   },
   {
-    date: "1-4", 
+    startDate: "01-04", 
+    endDate: "01-14", 
     items: [
       { id: "A027", price: "90", offertext: "2025 NEW YEAR OFFER!", theme: "2" },
-     // { id: "box", price: "0", quantity: 67, currency: "coins", offertext: "MAINTENANCE COMPENSATION", theme: "special_offer" }
     ],
     theme: "partytime"
   },
 ];
 
 // Generate specialDateConfig and specialDateTheme from the combined structure
-const specialDateConfig = userFriendlyDateConfig.reduce((acc, { date, items }) => {
-  acc[date] = items.map(({ id, price, currency, normalprice, offertext, theme, quantity}) => {
-    const getItemPriceSafe = (id) => getItemPrice(id) ?? 0;
+const specialDateConfig = userFriendlyDateConfig.reduce((acc, { startDate, endDate, items }) => {
+  const dateRange = generateDateRange(startDate, endDate);
 
-    const itemIds = Array.isArray(id) ? id : [id];
-    const combinedNormalPrice = itemIds.reduce((total, itemId) => total + getItemPriceSafe(itemId), 0);
+  dateRange.forEach(date => {
+    if (!acc[date]) acc[date] = [];
 
-    const item = {
-      itemId: id,
-      price: price ?? combinedNormalPrice,
-      quantity: quantity || 1, // Quantity added for box purchases
-      currency: currency || "coins",
-      offertext: offertext || "NEW ITEM",
-      offerid: Math.random().toString(36).substring(2, 7),
-       ...(theme != null && { theme }),
-    };
+    items.forEach(({ id, price, currency, normalprice, offertext, theme, quantity}) => {
+      const getItemPriceSafe = (id) => getItemPrice(id) ?? 0;
 
-    if (item.price !== combinedNormalPrice) {
-      item.normalprice = normalprice ?? combinedNormalPrice;
-    }
+      const itemIds = Array.isArray(id) ? id : [id];
+      const combinedNormalPrice = itemIds.reduce((total, itemId) => total + getItemPriceSafe(itemId), 0);
 
-    return item;
+      const item = {
+        itemId: id,
+        price: price ?? combinedNormalPrice,
+        quantity: quantity || 1, // Quantity added for box purchases
+        currency: currency || "coins",
+        offertext: offertext || "NEW ITEM",
+        offerid: Math.random().toString(36).substring(2, 7),
+        ...(theme != null && { theme }),
+      };
+
+      if (item.price !== combinedNormalPrice) {
+        item.normalprice = normalprice ?? combinedNormalPrice;
+      }
+
+      acc[date].push(item);
+    });
   });
 
   return acc;
 }, {});
 
-const specialDateTheme = userFriendlyDateConfig.reduce((acc, { date, theme }) => {
-  acc[date] = theme;
+const specialDateTheme = userFriendlyDateConfig.reduce((acc, { startDate, endDate, theme }) => {
+  const dateRange = generateDateRange(startDate, endDate);
+
+  dateRange.forEach(date => {
+    acc[date] = theme;
+  });
+
   return acc;
 }, {});
 
@@ -110,7 +142,5 @@ module.exports = {
   specialDateTheme,
   maxrotationcounter,
 };
-
-
 
 
