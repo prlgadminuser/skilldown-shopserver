@@ -30,6 +30,10 @@ function getItemPrice(itemId) {
   return itemPrices.get(itemId) || null;
 }
 
+const itemPrefixes = ["A", "B", "A", "B", "A", "B", "I", "P"];
+
+const maxrotationcounter = 5;
+
 // Utility function to generate all dates between start and end date
 function generateDateRange(startDate, endDate) {
   const start = new Date(startDate);
