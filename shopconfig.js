@@ -72,8 +72,14 @@ const userFriendlyDateConfig = [
   },
 ];
 
+const itemstoreduce = {
+    ...FreeConfig,
+    ...userFriendlyDateConfig,
+  };
+
+
 // Generate specialDateConfig and specialDateTheme from the combined structure
-const specialDateConfig = userFriendlyDateConfig.reduce((acc, { date, items }) => {
+const specialDateConfig = itemstoreduce.reduce((acc, { date, items }) => {
   acc[date] = items.map(({ id, price, currency, normalprice, offertext, theme, quantity}) => {
     const getItemPriceSafe = (id) => getItemPrice(id) ?? 0;
 
