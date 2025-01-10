@@ -86,8 +86,8 @@ const userFriendlyDateConfig = [
     theme: "halloween"
   },
   {
-    startDate: "01-04", 
-    endDate: "01-14", 
+    startDate: "1-4", 
+    endDate: "1-14", 
     items: [
       { id: "A027", price: "90", offertext: "2025 NEW YEAR OFFER!", theme: "2" },
     ],
