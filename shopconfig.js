@@ -33,6 +33,12 @@ const itemPrefixes = ["A", "B", "A", "B", "A", "B", "I", "P"];
 
 const maxrotationcounter = 5;
 
+// Default free items for every day
+const freeItems = [
+  { id: "A001", price: "0", offertext: "FREE ITEM FOR NEW PLAYERS!", theme: "2" },
+  { id: "A002", price: "0", offertext: "FREE ITEM FOR NEW PLAYERS!", theme: "2" },
+];
+
 // Updated structure to include itemOfferName and boxPurchases
 const userFriendlyDateConfig = [
   {
@@ -70,6 +76,18 @@ const userFriendlyDateConfig = [
   },
 ];
 
+// Function to generate default shop items for every day
+const generateDefaultShopItems = (date) => {
+  // Always add free items to the shop
+  const defaultItems = [...freeItems];
+  
+  // Check if the date already has custom items, if not, add the default ones
+  const dayItems = userFriendlyDateConfig,
+
+  // Merge custom items for the date with the default ones
+  return [...defaultItems, ...dayItems];
+};
+
 // Generate specialDateConfig and specialDateTheme from the combined structure
 const specialDateConfig = userFriendlyDateConfig.reduce((acc, { date, items }) => {
   acc[date] = items.map(({ id, price, currency, normalprice, offertext, theme, quantity}) => {
@@ -98,6 +116,19 @@ const specialDateConfig = userFriendlyDateConfig.reduce((acc, { date, items }) =
   return acc;
 }, {});
 
+// Ensure free items for all days by generating default items
+const allDates = Array.from({ length: 365 }, (_, i) => {
+  const date = new Date(2025, 0, i + 1); // Generate all dates in the year 2025
+  const formattedDate = `${date.getMonth() + 1}-${date.getDate()}`;
+  return formattedDate;
+});
+
+allDates.forEach(date => {
+  if (!specialDateConfig[date]) {
+    specialDateConfig[date] = generateDefaultShopItems(date);
+  }
+});
+
 const specialDateTheme = userFriendlyDateConfig.reduce((acc, { date, theme }) => {
   acc[date] = theme;
   return acc;
@@ -109,4 +140,5 @@ module.exports = {
   specialDateConfig,
   specialDateTheme,
   maxrotationcounter,
-}; 
+};
+
