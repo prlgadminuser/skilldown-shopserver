@@ -3,7 +3,7 @@ const { MongoClient, ServerApiVersion } = require("mongodb");
 const cron = require("node-cron");
 const fs = require("fs");
 
-const { specialDateConfig, FreeConfig, itemPrefixes, specialDateTheme, maxrotationcounter } = require('./shopconfig.js');
+const { specialDateConfig, itemPrefixes, specialDateTheme, maxrotationcounter } = require('./shopconfig.js');
 
 const app = express();
 exports.app = app;
@@ -244,16 +244,6 @@ function processDailyItemsAndSaveToServer() {
 
   // Apply discounts only to dailyItemsWithPrices
   const discountedDailyItems = applyDiscount(dailyItemsWithPrices);
-
-     const freeitems1 = FreeConfig["1"]
-    ? createKeyedItems(FreeConfig["1"])
-    : {};
-
-  // Re-key specialItems starting from key '1'
-  const freeitems = Object.keys(freeitems1).reduce((result, key, index) => {
-    result[index + 1] = freeitems1[key];
-    return result;
-  }, {});
 
 
    const specialItems = specialDateConfig[dateString]
