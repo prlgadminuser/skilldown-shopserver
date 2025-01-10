@@ -224,6 +224,17 @@ function applyDiscount(items) {
 function processDailyItemsAndSaveToServer() {
   const itemPrices = loadItemPrices();
 
+  const predefinedItems = [
+    "A001",  // Predefined item 1
+    "A002"   // Predefined item 2
+  ];
+
+  predefinedItems.forEach((item) => {
+    // Automatically find the next available key
+    const nextKey = Object.keys(dailyItems).length + 1;  // Incrementing key based on the current size of dailyItems
+    dailyItems[nextKey.toString()] = item;  // Add item to dailyItems with dynamic key
+  });
+
   // Create dailyItemsWithPrices by mapping item IDs to their prices
   const dailyItemsWithPrices = Object.keys(dailyItems).reduce((result, key) => {
     const item = dailyItems[key];
