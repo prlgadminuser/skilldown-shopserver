@@ -45,10 +45,10 @@ const userFriendlyDateConfig = [
     theme: "halloween"
   },
   {
-    startDate: "1-5", // Start date
+    startDate: "1-2", // Start date
     endDate: "1-25",   // Same end date
     items: [
-      { id: "A033", price: "400", currency: "coins", offertext: "NEW OFFER IN HALLOWEEN", theme: "3" },
+      { id: "A033", price: "400", currency: "gems", offertext: "NEW OFFER IN HALLOWEEN", theme: "3" },
     ],
     theme: "halloween"
   }
@@ -56,15 +56,8 @@ const userFriendlyDateConfig = [
 
 // Helper function to check if a date is within a range
 function isDateInRange(date, startDate, endDate) {
-  const [month, day] = date.split("-").map(Number);
-  const [startMonth, startDay] = startDate.split("-").map(Number);
-  const [endMonth, endDay] = endDate.split("-").map(Number);
-
-  const currentDate = new Date(2025, month - 1, day); // Assumes year 2025 for all comparisons
-  const start = new Date(2025, startMonth - 1, startDay);
-  const end = new Date(2025, endMonth - 1, endDay);
-
-  return currentDate >= start && currentDate <= end;
+  // We simply compare the strings "MM-DD" format directly
+  return date >= startDate && date <= endDate;
 }
 
 // Generate specialDateConfig and specialDateTheme from the combined structure
