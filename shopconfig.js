@@ -33,46 +33,47 @@ const itemPrefixes = ["A", "B", "A", "B", "A", "B", "I", "P"];
 
 const maxrotationcounter = 5;
 
-// Updated structure to include itemOfferName and boxPurchases
+// Updated structure with startDate and endDate
 const userFriendlyDateConfig = [
   {
-    date: "11-19", // Partytime
+    startDate: "11-19", // Start date
+    endDate: "11-25",   // End date
     items: [
       { id: "I006", price: "250", currency: "gems", offertext: "TRICK OR TREAT BANNER!", theme: "3" },
       { id: ["A038", "B029"], price: "300", currency: "gems", offertext: "SKILLEDWEEN OFFER", normalprice: "350", theme: "3" },
-      { id: "5 Boxes A", price: "450", quantity: 5, currency: "gems", offertext: "Bulk purchase of 5 Box A", theme: "special_offer" },
     ],
     theme: "halloween"
   },
   {
-    date: "10-30", 
+    startDate: "1-5", // Start date
+    endDate: "1-25",   // Same end date
     items: [
-      { id: "I006", price: "250", offertext: "TRICK OR TREAT BANNER!", theme: "3" },
-      { id: ["A038", "B029"], price: "300", offertext: "SKILLEDWEEN OFFER", normalprice: "350", theme: "3" },
+      { id: "A033", price: "400", currency: "coins", offertext: "NEW OFFER IN HALLOWEEN", theme: "3" },
     ],
     theme: "halloween"
-  },
-  {
-    date: "11-23", 
-    items: [
-      { id: "I006", price: "250", offertext: "TRICK OR TREAT BANNER!", theme: "3" },
-      { id: ["A033", "I013"], price: "300", offertext: "ARCADE SEASON RETURNS!", theme: "2" },
-    ],
-    theme: "halloween"
-  },
-  {
-    date: "1-4", 
-    items: [
-      { id: "A027", price: "90", offertext: "2025 NEW YEAR OFFER!", theme: "2" },
-     // { id: "box", price: "0", quantity: 67, currency: "coins", offertext: "MAINTENANCE COMPENSATION", theme: "special_offer" }
-    ],
-    theme: "partytime"
-  },
+  }
 ];
 
+// Helper function to check if a date is within a range
+function isDateInRange(date, startDate, endDate) {
+  const [month, day] = date.split("-").map(Number);
+  const [startMonth, startDay] = startDate.split("-").map(Number);
+  const [endMonth, endDay] = endDate.split("-").map(Number);
+
+  const currentDate = new Date(2025, month - 1, day); // Assumes year 2025 for all comparisons
+  const start = new Date(2025, startMonth - 1, startDay);
+  const end = new Date(2025, endMonth - 1, endDay);
+
+  return currentDate >= start && currentDate <= end;
+}
+
 // Generate specialDateConfig and specialDateTheme from the combined structure
-const specialDateConfig = userFriendlyDateConfig.reduce((acc, { date, items }) => {
-  acc[date] = items.map(({ id, price, currency, normalprice, offertext, theme, quantity}) => {
+const specialDateConfig = userFriendlyDateConfig.reduce((acc, { startDate, endDate, items }) => {
+  if (!acc[startDate]) {
+    acc[startDate] = [];
+  }
+
+  const newItems = items.map(({ id, price, currency, normalprice, offertext, theme, quantity}) => {
     const getItemPriceSafe = (id) => getItemPrice(id) ?? 0;
 
     const itemIds = Array.isArray(id) ? id : [id];
@@ -95,11 +96,13 @@ const specialDateConfig = userFriendlyDateConfig.reduce((acc, { date, items }) =
     return item;
   });
 
+  // Add the new items to the existing list for the same date range
+  acc[startDate] = [...acc[startDate], ...newItems];
   return acc;
 }, {});
 
-const specialDateTheme = userFriendlyDateConfig.reduce((acc, { date, theme }) => {
-  acc[date] = theme;
+const specialDateTheme = userFriendlyDateConfig.reduce((acc, { startDate, theme }) => {
+  acc[startDate] = theme;
   return acc;
 }, {});
 
@@ -109,4 +112,5 @@ module.exports = {
   specialDateConfig,
   specialDateTheme,
   maxrotationcounter,
+  isDateInRange,
 };
