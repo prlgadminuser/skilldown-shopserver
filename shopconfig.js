@@ -59,12 +59,10 @@ function formatDate(date) {
 // Updated structure with startDate and endDate
 const userFriendlyDateConfig = [
   {
-    startDate: "11-19", // Partytime
-    endDate: "11-19",
+    startDate: "01-01",  // Start of the year
+    endDate: "12-31",    // End of the year
     items: [
-      { id: "I006", price: "250", currency: "gems", offertext: "TRICK OR TREAT BANNER!", theme: "3" },
-      { id: ["A038", "B029"], price: "300", currency: "gems", offertext: "SKILLEDWEEN OFFER", normalprice: "350", theme: "3" },
-      { id: "5 Boxes A", price: "450", quantity: 5, currency: "gems", offertext: "Bulk purchase of 5 Box A", theme: "special_offer" },
+      { id: ["A001", "A002"], price: "0", currency: "coins", offertext: "STARTER PACK", normalprice: "350", theme: "2" },
     ],
     theme: "halloween"
   },
