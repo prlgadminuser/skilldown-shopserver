@@ -38,15 +38,25 @@ const maxrotationcounter = 5;
 function generateDateRange(startDate, endDate) {
   const start = new Date(startDate);
   const end = new Date(endDate);
-  const dates = [];
+
+  // Calculate the maximum range of 2 additional days from the start date
+  const maxEndDate = new Date(start); 
+  maxEndDate.setDate(start.getDate() + 2); // Add 2 days to the start date
   
-  while (start <= end) {
+  // Use the minimum of the actual endDate and the maxEndDate
+  const finalEndDate = end < maxEndDate ? end : maxEndDate;
+  
+  const dates = [];
+
+  // Generate the dates between startDate and finalEndDate
+  while (start <= finalEndDate) {
     dates.push(formatDate(start));
     start.setDate(start.getDate() + 1);
   }
   
   return dates;
 }
+
 
 // Format date to MM-DD format
 function formatDate(date) {
