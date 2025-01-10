@@ -86,8 +86,8 @@ const userFriendlyDateConfig = [
     theme: "halloween"
   },
   {
-    startDate: "1-4", 
-    endDate: "1-14", 
+    startDate: "2-4", 
+    endDate: "2-14", 
     items: [
       { id: "A027", price: "90", offertext: "2025 NEW YEAR OFFER!", theme: "2" },
     ],
@@ -128,6 +128,8 @@ const specialDateConfig = userFriendlyDateConfig.reduce((acc, { startDate, endDa
 
   return acc;
 }, {});
+
+console.log(specialDateConfig)
 
 const specialDateTheme = userFriendlyDateConfig.reduce((acc, { startDate, endDate, theme }) => {
   const dateRange = generateDateRange(startDate, endDate);
