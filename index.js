@@ -46,6 +46,72 @@ const itemDataCollection = db.collection("item_data");
 const PackItemsCollection = db.collection("packitems");
 const shopcollection = db.collection("serverconfig");
 
+async function getItemData() {
+  const itemsData = fs.readFileSync("items.txt", "utf8");
+  const lines = itemsData.split("\n");
+
+  try {
+    await itemDataCollection.deleteMany({});
+    const itemsToInsert = lines
+      .map((line) => {
+        const [itemId, itemPrice] = line.split(":");
+        const parsedItemPrice = parseInt(itemPrice);
+
+        if (!isNaN(parsedItemPrice)) {
+          return {
+            _id: itemId,
+            id: itemId,
+            price: parsedItemPrice,
+          };
+        } else {
+          console.error(`Invalid item price for item ${itemId}: ${itemPrice}`);
+          return null;
+        }
+      })
+      .filter((item) => item !== null);
+
+    await itemDataCollection.insertMany(itemsToInsert);
+    console.log("Items initialized successfully.");
+  } catch (error) {
+    console.error("Error initializing items:", error);
+  }
+}
+
+// Call the asynchronous function
+// getItemData();
+
+async function getItemData2() {
+  const itemsData = fs.readFileSync("packitems.txt", "utf8");
+  const lines = itemsData.split("\n");
+
+  try {
+    await PackItemsCollection.deleteMany({});
+    const itemsToInsert = lines
+      .map((line) => {
+        const [itemId, itemPrice] = line.split(":");
+        const parsedItemPrice = parseInt(itemPrice);
+
+        if (!isNaN(parsedItemPrice)) {
+          return {
+            id: itemId,
+            price: parsedItemPrice,
+          };
+        } else {
+          console.error(`Invalid item price for item ${itemId}: ${itemPrice}`);
+          return null;
+        }
+      })
+      .filter((item) => item !== null);
+
+    await PackItemsCollection.insertMany(itemsToInsert);
+    console.log("Items initialized successfully.");
+  } catch (error) {
+    console.error("Error initializing items:", error);
+  }
+}
+
+// getItemData2();
+// getItemData();
 
 const itemsFilePath = "shopitems.txt";
 const previousRotationFilePath = "previous-rotation.txt";
@@ -221,11 +287,6 @@ function applyDiscount(items) {
   return items;
 }
 
-function isDateInRange(date, startDate, endDate) {
-  return date >= startDate && date <= endDate;
-}
-
-
 function processDailyItemsAndSaveToServer() {
   const itemPrices = loadItemPrices();
 
@@ -239,27 +300,22 @@ function processDailyItemsAndSaveToServer() {
   }, {});
 
   const date = new Date();
-  const month = date.getMonth() + 1; // getMonth() returns 0-indexed month
+  const month = date.getMonth() + 1;
   const day = date.getDate();
-  const dateString = `${month}-${day}`; // Format the date as MM-DD
+  const dateString = `${month}-${day}`;
   const theme = specialDateTheme[dateString] || undefined;
 
-  // Check for special items on the given date by comparing against startDate and endDate
-  const specialItems = Object.keys(specialDateConfig).reduce((acc, startDate) => {
-    const config = specialDateConfig[startDate];
-    if (isDateInRange(dateString, config.startDate, config.endDate)) {
-      const keyedItems = createKeyedItems(config.items);
-      acc = { ...acc, ...keyedItems };
-    }
-    return acc;
-  }, {});
+  // Check for special items on the given date
+  const specialItems = specialDateConfig[dateString]
+    ? createKeyedItems(specialDateConfig[dateString])
+    : {};
 
   // Apply discounts only to dailyItemsWithPrices
   const discountedDailyItems = applyDiscount(dailyItemsWithPrices);
 
   // Re-key specialItems starting from key '1'
   const rekeyedSpecialItems = Object.keys(specialItems).reduce((result, key, index) => {
-    result[index + 1] = specialItems[key]; // rekey to start from 1
+    result[index + 1] = specialItems[key];
     return result;
   }, {});
 
@@ -282,7 +338,7 @@ function processDailyItemsAndSaveToServer() {
   const document = {
     _id: "dailyItems",
     items: finalItems,
-    theme: theme || "default", // Default theme if none found
+    theme: theme || "default",
   };
 
   // Save the final document to the database with upsert option
@@ -292,6 +348,7 @@ function processDailyItemsAndSaveToServer() {
     { upsert: true }
   );
 }
+
 
 
 
