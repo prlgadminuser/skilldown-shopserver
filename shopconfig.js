@@ -45,8 +45,8 @@ const userFriendlyDateConfig = [
     theme: "halloween"
   },
   {
-    startDate: "1-2", // Start date
-    endDate: "1-25",   // Same end date
+    startDate: "1-1", // Start date
+    endDate: "12-24",   // Same end date
     items: [
       { id: "A033", price: "400", currency: "gems", offertext: "NEW OFFER IN HALLOWEEN", theme: "3" },
     ],
