@@ -306,9 +306,11 @@ function processDailyItemsAndSaveToServer() {
   const theme = specialDateTheme[dateString] || undefined;
 
   // Check for special items on the given date
-  const specialItems = specialDateConfig[dateString]
-    ? createKeyedItems(specialDateConfig[dateString])
-    : {};
+  const specialItems = Object.keys(specialDateConfig).filter(date => dateString === date)
+    .reduce((items, date) => {
+        return [...items, ...createKeyedItems(specialDateConfig[date])];
+    }, []);
+
   // Apply discounts only to dailyItemsWithPrices
   const discountedDailyItems = applyDiscount(dailyItemsWithPrices);
 
