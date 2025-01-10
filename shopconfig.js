@@ -50,10 +50,11 @@ function generateDateRange(startDate, endDate) {
 
 // Format date to MM-DD format
 function formatDate(date) {
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
+  const month = date.getMonth() + 1; // No padding
+  const day = date.getDate(); // No padding
   return `${month}-${day}`;
 }
+
 
 // Updated structure with startDate and endDate
 const userFriendlyDateConfig = [
