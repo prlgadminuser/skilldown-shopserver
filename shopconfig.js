@@ -57,6 +57,14 @@ function formatDate(date) {
   return `${month}-${day}`;
 }
 
+function getExpirationTimestamp(endDate) {
+  const [month, day] = endDate.split("-").map(Number);
+  const year = new Date().getFullYear();
+  const expirationDate = new Date(year, month - 1, day, 23, 59, 59); // End of the day
+  return expirationDate.getTime();
+}
+
+
 
 // Updated structure with startDate and endDate
 const userFriendlyDateConfig = [
@@ -90,6 +98,7 @@ const userFriendlyDateConfig = [
 // Generate specialDateConfig and specialDateTheme from the combined structure
 const specialDateConfig = userFriendlyDateConfig.reduce((acc, { startDate, endDate, items }) => {
   const dateRange = generateDateRange(startDate, endDate);
+  const expirationTimestamp = getExpirationTimestamp(endDate);
 
   dateRange.forEach(date => {
     if (!acc[date]) acc[date] = [];
@@ -106,6 +115,7 @@ const specialDateConfig = userFriendlyDateConfig.reduce((acc, { startDate, endDa
         quantity: quantity || 1, // Quantity added for box purchases
         currency: currency || "coins",
         offertext: offertext || "NEW ITEM",
+        expires_in: expirationTimestamp || 0,
         //offerid: Math.random().toString(36).substring(2, 7),
         ...(theme != null && { theme }),
       };
