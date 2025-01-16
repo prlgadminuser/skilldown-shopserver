@@ -106,7 +106,7 @@ const specialDateConfig = userFriendlyDateConfig.reduce((acc, { startDate, endDa
         quantity: quantity || 1, // Quantity added for box purchases
         currency: currency || "coins",
         offertext: offertext || "NEW ITEM",
-        offerid: Math.random().toString(36).substring(2, 7),
+        //offerid: Math.random().toString(36).substring(2, 7),
         ...(theme != null && { theme }),
       };
 
