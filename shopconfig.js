@@ -78,9 +78,9 @@ const userFriendlyDateConfig = [
   },
   {
     startDate: "1-19", 
-    endDate: "1-21", 
+    endDate: "1-20", 
     items: [
-      { id: ["I013", "A033"], price: "800", offertext: "ARCADE SEASON OFFER!", theme: "5" },
+      { id: ["I013", "A033"], price: "500", offertext: "ARCADE SEASON OFFER!", theme: "5" },
     ],
     theme: "default"
   },
