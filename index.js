@@ -42,76 +42,9 @@ async function startServer() {
 
 
 const db = client.db("Cluster0");
-const itemDataCollection = db.collection("item_data");
 const PackItemsCollection = db.collection("packitems");
 const shopcollection = db.collection("serverconfig");
 
-async function getItemData() {
-  const itemsData = fs.readFileSync("items.txt", "utf8");
-  const lines = itemsData.split("\n");
-
-  try {
-    await itemDataCollection.deleteMany({});
-    const itemsToInsert = lines
-      .map((line) => {
-        const [itemId, itemPrice] = line.split(":");
-        const parsedItemPrice = parseInt(itemPrice);
-
-        if (!isNaN(parsedItemPrice)) {
-          return {
-            _id: itemId,
-            id: itemId,
-            price: parsedItemPrice,
-          };
-        } else {
-          console.error(`Invalid item price for item ${itemId}: ${itemPrice}`);
-          return null;
-        }
-      })
-      .filter((item) => item !== null);
-
-    await itemDataCollection.insertMany(itemsToInsert);
-    console.log("Items initialized successfully.");
-  } catch (error) {
-    console.error("Error initializing items:", error);
-  }
-}
-
-// Call the asynchronous function
-// getItemData();
-
-async function getItemData2() {
-  const itemsData = fs.readFileSync("packitems.txt", "utf8");
-  const lines = itemsData.split("\n");
-
-  try {
-    await PackItemsCollection.deleteMany({});
-    const itemsToInsert = lines
-      .map((line) => {
-        const [itemId, itemPrice] = line.split(":");
-        const parsedItemPrice = parseInt(itemPrice);
-
-        if (!isNaN(parsedItemPrice)) {
-          return {
-            id: itemId,
-            price: parsedItemPrice,
-          };
-        } else {
-          console.error(`Invalid item price for item ${itemId}: ${itemPrice}`);
-          return null;
-        }
-      })
-      .filter((item) => item !== null);
-
-    await PackItemsCollection.insertMany(itemsToInsert);
-    console.log("Items initialized successfully.");
-  } catch (error) {
-    console.error("Error initializing items:", error);
-  }
-}
-
-// getItemData2();
-// getItemData();
 
 const itemsFilePath = "shopitems.txt";
 const previousRotationFilePath = "previous-rotation.txt";
